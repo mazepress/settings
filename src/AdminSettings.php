@@ -22,21 +22,21 @@ abstract class AdminSettings {
 	 *
 	 * @var string $slug
 	 */
-	protected $slug;
+	private $slug;
 
 	/**
 	 * The title.
 	 *
 	 * @var string $title
 	 */
-	protected $title;
+	private $title;
 
 	/**
 	 * The description.
 	 *
 	 * @var string $description
 	 */
-	protected $description;
+	private $description;
 
 	/**
 	 * Get the fieldsets.
