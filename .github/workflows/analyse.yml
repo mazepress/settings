@@ -43,17 +43,3 @@ jobs:
 
       - name: Coverage Check
         run: composer run coverage
-
-  # Check SASS, CSS and JS Coding Standards
-  lintcss:
-    name: Analyse SASS, CSS and JS
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Install Packages
-        run: npm install --silent --no-progress
-
-      - name: Check Standards
-        run: npm run check

@@ -1,5 +1,5 @@
 {
-	"name": "mazepress/skeleton",
+	"name": "mazepress/settings",
 	"type": "wordpress-plugin",
 	"description": "A custom WordPress plugin.",
 	"license": "MIT",
@@ -13,7 +13,7 @@
 		"php": "^7.4 | ^8.0",
 		"automattic/jetpack-autoloader": "^2.12",
 		"composer/installers": "^2.2",
-		"mazepress/core": "dev-main"
+		"mazepress/forms": "dev-main"
 	},
 	"require-dev": {
 		"phpcompatibility/phpcompatibility-wp": "^2.1.4",
@@ -27,24 +27,24 @@
 	},
 	"scripts": {
 		"phpcs": "./vendor/bin/phpcs --standard=phpcs.xml",
-		"phpcbf": "./vendor/bin/phpcbf src tests skeleton.php",
+		"phpcbf": "./vendor/bin/phpcbf src tests settings.php",
 		"phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon --memory-limit 2G",
 		"phpunit": "./vendor/bin/phpunit --configuration phpunit.xml",
 		"coverage": "./vendor/bin/code-coverage ./build/clover.xml 90",
-		"make:pot": "./vendor/bin/wp i18n make-pot . ./languages/skeleton.pot --include='src,skeleton.php'",
-		"make:mo": "./vendor/bin/wp i18n make-mo ./languages/skeleton.pot'",
-		"update:po": "./vendor/bin/wp i18n update-po ./languages/skeleton.pot'",
+		"make:pot": "./vendor/bin/wp i18n make-pot . ./languages/settings.pot --include='src'",
+		"make:mo": "./vendor/bin/wp i18n make-mo ./languages/settings.pot'",
+		"update:po": "./vendor/bin/wp i18n update-po ./languages/settings.pot'",
 		"post-install-cmd": "composer dump-autoload",
 		"post-update-cmd": "composer dump-autoload"
 	},
 	"autoload": {
 		"psr-4": {
-			"Mazepress\\Skeleton\\": "src"
+			"Mazepress\\Settings\\": "src"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Mazepress\\Skeleton\\Tests\\": "tests"
+			"Mazepress\\Settings\\Tests\\": "tests"
 		}
 	},
 	"prefer-stable": true,
