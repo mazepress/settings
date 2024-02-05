@@ -1,6 +1,6 @@
 <?php
 /**
- * The AdminSettings class file.
+ * The BaseSettings class file.
  *
  * @package Mazepress\Settings
  */
@@ -13,30 +13,30 @@ use Mazepress\Forms\Field\Fieldset;
 use Mazepress\Forms\Field\BaseField;
 
 /**
- * The AdminSettings class.
+ * The BaseSettings class.
  */
-abstract class AdminSettings {
+abstract class BaseSettings {
 
 	/**
-	 * The slug.
+	 * The menu slug.
 	 *
-	 * @var string $slug
+	 * @var string $menu_slug
 	 */
-	private $slug;
+	private $menu_slug;
 
 	/**
-	 * The title.
+	 * The menu title.
 	 *
-	 * @var string $title
+	 * @var string $menu_title
 	 */
-	private $title;
+	private $menu_title;
 
 	/**
-	 * The description.
+	 * The page title.
 	 *
-	 * @var string $description
+	 * @var string $page_title
 	 */
-	private $description;
+	private $page_title;
 
 	/**
 	 * Get the fieldsets.
@@ -44,31 +44,6 @@ abstract class AdminSettings {
 	 * @return Fieldset[]
 	 */
 	abstract public function get_fieldsets(): array;
-
-	/**
-	 * Register class features.
-	 *
-	 * @return self
-	 */
-	public function init(): self {
-
-		// Add admin menu and sections.
-		add_action( 'admin_init', array( $this, 'render_section' ) );
-		add_action(
-			'admin_menu',
-			function () {
-				add_options_page(
-					$this->get_description(),
-					$this->get_title(),
-					'manage_options',
-					$this->get_slug(),
-					array( $this, 'render_page' )
-				);
-			}
-		);
-
-		return $this;
-	}
 
 	/**
 	 * Render the settings page.
@@ -94,7 +69,7 @@ abstract class AdminSettings {
 			$fieldsets,
 			function ( Fieldset $fieldset ) use ( $active ) {
 				$class = ( $fieldset->get_slug() === $active ) ? ' nav-tab-active' : '';
-				$href  = wp_sprintf( '?page=%1$s&tab=%2$s', $this->get_slug(), $fieldset->get_slug() );
+				$href  = wp_sprintf( '?page=%1$s&tab=%2$s', $this->get_menu_slug(), $fieldset->get_slug() );
 				echo wp_sprintf(
 					'<a class="nav-tab %1$s" href="%2$s">%3$s</a>',
 					esc_attr( $class ),
@@ -107,7 +82,7 @@ abstract class AdminSettings {
 		echo '</nav>';
 		echo '<form method="post" enctype="multipart/form-data" action="options.php">';
 
-		$field = wp_sprintf( '%1$s_%2$s', $this->get_slug(), $active );
+		$field = wp_sprintf( '%1$s_%2$s', $this->get_menu_slug(), $active );
 
 		settings_fields( $field );
 		do_settings_sections( $field );
@@ -129,8 +104,8 @@ abstract class AdminSettings {
 			$fieldsets,
 			function ( Fieldset $fieldset ) {
 
-				$page    = wp_sprintf( '%1$s_%2$s', $this->get_slug(), $fieldset->get_slug() );
-				$section = wp_sprintf( '%1$s_settings_%2$s', $this->get_slug(), $fieldset->get_slug() );
+				$page    = wp_sprintf( '%1$s_%2$s', $this->get_menu_slug(), $fieldset->get_slug() );
+				$section = wp_sprintf( '%1$s_settings_%2$s', $this->get_menu_slug(), $fieldset->get_slug() );
 
 				register_setting( $page, $section );
 
@@ -208,7 +183,7 @@ abstract class AdminSettings {
 			return $options;
 		}
 
-		$settings = get_option( wp_sprintf( '%1$s_settings_%2$s', $this->get_slug(), $fieldset ) );
+		$settings = get_option( wp_sprintf( '%1$s_settings_%2$s', $this->get_menu_slug(), $fieldset ) );
 
 		if ( is_array( $settings ) ) {
 			$options = $settings;
@@ -243,65 +218,65 @@ abstract class AdminSettings {
 	}
 
 	/**
-	 * Get slug.
+	 * Get menu slug.
 	 *
 	 * @return string
 	 */
-	public function get_slug(): string {
-		return $this->slug;
+	public function get_menu_slug(): string {
+		return $this->menu_slug;
 	}
 
 	/**
-	 * Set slug.
+	 * Set menu slug.
 	 *
-	 * @param String $slug The slug.
+	 * @param String $menu_slug The menu slug.
 	 *
 	 * @return self
 	 */
-	public function set_slug( string $slug ): self {
-		$this->slug = $slug;
+	public function set_menu_slug( string $menu_slug ): self {
+		$this->menu_slug = $menu_slug;
 		return $this;
 	}
 
 	/**
-	 * Get title.
+	 * Get menu title.
 	 *
 	 * @return string
 	 */
-	public function get_title(): string {
-		return $this->title;
+	public function get_menu_title(): string {
+		return $this->menu_title;
 	}
 
 	/**
-	 * Set title.
+	 * Set menu title.
 	 *
-	 * @param String $title The title.
+	 * @param String $menu_title The menu title.
 	 *
 	 * @return self
 	 */
-	public function set_title( string $title ): self {
-		$this->title = $title;
+	public function set_menu_title( string $menu_title ): self {
+		$this->menu_title = $menu_title;
 		return $this;
 	}
 
 	/**
-	 * Get description.
+	 * Get page title.
 	 *
 	 * @return string
 	 */
-	public function get_description(): string {
-		return $this->description;
+	public function get_page_title(): string {
+		return $this->page_title;
 	}
 
 	/**
-	 * Set description.
+	 * Set page title.
 	 *
-	 * @param String $description The description.
+	 * @param String $page_title The page_title.
 	 *
 	 * @return self
 	 */
-	public function set_description( string $description ): self {
-		$this->description = $description;
+	public function set_page_title( string $page_title ): self {
+		$this->page_title = $page_title;
 		return $this;
 	}
 }
