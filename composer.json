@@ -1,14 +1,14 @@
 {
 	"name": "mazepress/settings",
 	"type": "wordpress-plugin",
-	"description": "A custom WordPress plugin.",
+	"description": "A package library for building WordPress settings page.",
 	"license": "MIT",
 	"repositories": [
-        {
-            "type": "composer",
-            "url": "https://mazepress.github.io/packagist"
-        }
-    ],
+    {
+      "type": "composer",
+      "url": "https://mazepress.github.io/packagist"
+    }
+  ],
 	"require": {
 		"php": "^7.4 | ^8.0",
 		"automattic/jetpack-autoloader": "^2.12",
