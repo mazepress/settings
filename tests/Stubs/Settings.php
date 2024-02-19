@@ -9,7 +9,7 @@
 namespace Mazepress\Settings\Tests\Stubs;
 
 use Mazepress\Settings\BaseSettings;
-use Mazepress\Forms\Field\Fieldset;
+use Mazepress\Html\Field\Fieldset;
 
 /**
  * The Settings test class.

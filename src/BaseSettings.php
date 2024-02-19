@@ -9,8 +9,9 @@ declare(strict_types=1);
 
 namespace Mazepress\Settings;
 
-use Mazepress\Forms\Field\Fieldset;
-use Mazepress\Forms\Field\BaseField;
+use Mazepress\Html\Field\Fieldset;
+use Mazepress\Html\Field\BaseField;
+use Mazepress\Html\Field\Label;
 
 /**
  * The BaseSettings class.
@@ -131,10 +132,15 @@ abstract class BaseSettings {
 						}
 
 						$field->set_name( wp_sprintf( '%1$s[%2$s]%3$s', $section, $field_name, $post_fix ) );
+						$label = $field->get_label();
+
+						if ( $field instanceof Label ) {
+							$label = '<h3>' . $label . '</h3>';
+						}
 
 						add_settings_field(
 							$field->get_name(),
-							$field->get_label(),
+							$label,
 							array( $this, 'render_field' ),
 							$page,
 							$section,
@@ -157,12 +163,16 @@ abstract class BaseSettings {
 
 		if ( ! empty( $args['field'] ) && $args['field'] instanceof BaseField ) {
 
-			$args['field']->render();
+			if ( $args['field'] instanceof Label ) {
+				echo '<hr>';
+			} else {
+				$args['field']->render();
+			}
 
 			if ( ! empty( $args['field']->get_description() ) ) {
 				echo wp_sprintf(
 					'<p class="form-info-text">%1$s</p>',
-					esc_html( $args['field']->get_description() )
+					wp_kses_post( $args['field']->get_description() )
 				);
 			}
 		}

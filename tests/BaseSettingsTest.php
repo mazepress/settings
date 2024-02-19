@@ -8,9 +8,9 @@
 
 namespace Mazepress\Settings\Tests;
 
-use WP_Mock\Tools\TestCase;
 use Mazepress\Settings\BaseSettings;
 use Mazepress\Settings\Tests\Stubs\Settings;
+use WP_Mock\Tools\TestCase;
 
 /**
  * The BaseSettingsTest test class.
