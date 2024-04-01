@@ -13,7 +13,7 @@
 		"php": "^7.4 | ^8.0",
 		"automattic/jetpack-autoloader": "^2.12",
 		"composer/installers": "^2.2",
-		"mazepress/html": "dev-main"
+		"mazepress/html": "^1.1"
 	},
 	"require-dev": {
 		"phpcompatibility/phpcompatibility-wp": "^2.1.4",
@@ -27,7 +27,7 @@
 	},
 	"scripts": {
 		"phpcs": "./vendor/bin/phpcs --standard=phpcs.xml",
-		"phpcbf": "./vendor/bin/phpcbf src tests settings.php",
+		"phpcbf": "./vendor/bin/phpcbf src tests",
 		"phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon --memory-limit 2G",
 		"phpunit": "./vendor/bin/phpunit --configuration phpunit.xml",
 		"coverage": "./vendor/bin/code-coverage ./build/clover.xml 90",
@@ -48,7 +48,7 @@
 		}
 	},
 	"prefer-stable": true,
-	"minimum-stability": "dev",
+	"minimum-stability": "stable",
 	"config": {
 		"optimize-autoloader": true,
 		"sort-packages": true,

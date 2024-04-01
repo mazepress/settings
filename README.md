@@ -1,6 +1,8 @@
 # MazePress - Settings
 A package library for building [WordPress](https://wordpress.org) settings page.
 
+[![Code Analysis](https://github.com/mazepress/settings/actions/workflows/analyse.yml/badge.svg)](https://github.com/mazepress/settings/actions/workflows/analyse.yml)
+
 ## Installation
 The simplest way to get up and running with this package is using [Composer](http://getcomposer.org/).
 In your `composer.json` file:
@@ -11,15 +13,16 @@ In your `composer.json` file:
 
 ```json
 {
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
+  "prefer-stable": true,
   "repositories": [
     {
-      "type": "vcs",
-      "url": "https://github.com/mazepress/settings.git"
+      "type": "composer",
+      "url": "https://mazepress.github.io/packagist"
     }
   ],
   "require": {
-    "mazepress/settings": "dev-main"
+    "mazepress/settings": "^1.0"
   },
   "config": {
     "preferred-install": {
