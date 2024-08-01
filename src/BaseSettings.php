@@ -40,11 +40,51 @@ abstract class BaseSettings {
 	private $page_title;
 
 	/**
+	 * The capability.
+	 *
+	 * @var string $capability
+	 */
+	private $capability;
+
+	/**
 	 * Get the fieldsets.
 	 *
 	 * @return Fieldset[]
 	 */
 	abstract public function get_fieldsets(): array;
+
+	/**
+	 * Initialise class.
+	 *
+	 * @return self
+	 */
+	public function init(): self {
+
+		if (
+			! empty( $this->get_page_title() )
+			&& ! empty( $this->get_page_title() )
+			&& ! empty( $this->get_page_title() )
+		) {
+			// Add admin menu.
+			add_action(
+				'admin_menu',
+				function () {
+					add_options_page(
+						$this->get_page_title(),
+						$this->get_menu_title(),
+						$this->get_capability(),
+						$this->get_menu_slug(),
+						array( $this, 'render_page' )
+					);
+				}
+			);
+		}
+
+		// Render settings section.
+		add_action( 'admin_init', array( $this, 'render_section' ) );
+
+		return $this;
+	}
 
 	/**
 	 * Render the settings page.
@@ -230,9 +270,9 @@ abstract class BaseSettings {
 	/**
 	 * Get menu slug.
 	 *
-	 * @return string
+	 * @return string|null
 	 */
-	public function get_menu_slug(): string {
+	public function get_menu_slug(): ?string {
 		return $this->menu_slug;
 	}
 
@@ -251,9 +291,9 @@ abstract class BaseSettings {
 	/**
 	 * Get menu title.
 	 *
-	 * @return string
+	 * @return string|null
 	 */
-	public function get_menu_title(): string {
+	public function get_menu_title(): ?string {
 		return $this->menu_title;
 	}
 
@@ -272,9 +312,9 @@ abstract class BaseSettings {
 	/**
 	 * Get page title.
 	 *
-	 * @return string
+	 * @return string|null
 	 */
-	public function get_page_title(): string {
+	public function get_page_title(): ?string {
 		return $this->page_title;
 	}
 
@@ -287,6 +327,27 @@ abstract class BaseSettings {
 	 */
 	public function set_page_title( string $page_title ): self {
 		$this->page_title = $page_title;
+		return $this;
+	}
+
+	/**
+	 * Get page title.
+	 *
+	 * @return string|null
+	 */
+	public function get_capability(): ?string {
+		return $this->capability;
+	}
+
+	/**
+	 * Set page title.
+	 *
+	 * @param String $capability The capability.
+	 *
+	 * @return self
+	 */
+	public function set_capability( string $capability ): self {
+		$this->capability = $capability;
 		return $this;
 	}
 }

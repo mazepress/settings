@@ -12,6 +12,11 @@ All the notable changes to this project will be documented in this file.
 ### Removed
 - 
 
+## [1.0.1]
+
+### Added
+- Added class initialise
+
 ## [1.0.0]
 
 ### Added

@@ -33,13 +33,17 @@ class BaseSettingsTest extends TestCase {
 		$this->assertInstanceOf( Settings::class, $object->set_menu_slug( $slig ) );
 		$this->assertEquals( $slig, $object->get_menu_slug() );
 
-		$title = 'Test Name';
+		$title = 'Test Menu Name';
 		$this->assertInstanceOf( Settings::class, $object->set_menu_title( $title ) );
 		$this->assertEquals( $title, $object->get_menu_title() );
 
-		$desc = 'Test description';
-		$this->assertInstanceOf( Settings::class, $object->set_page_title( $desc ) );
-		$this->assertEquals( $desc, $object->get_page_title() );
+		$title = 'Test Page Title';
+		$this->assertInstanceOf( Settings::class, $object->set_page_title( $title ) );
+		$this->assertEquals( $title, $object->get_page_title() );
+
+		$capability = 'manage_options';
+		$this->assertInstanceOf( Settings::class, $object->set_capability( $capability ) );
+		$this->assertEquals( $capability, $object->get_capability() );
 	}
 
 	/**
