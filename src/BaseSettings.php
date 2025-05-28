@@ -62,8 +62,9 @@ abstract class BaseSettings {
 
 		if (
 			! empty( $this->get_page_title() )
-			&& ! empty( $this->get_page_title() )
-			&& ! empty( $this->get_page_title() )
+			&& ! empty( $this->get_menu_title() )
+			&& ! empty( $this->get_capability() )
+			&& ! empty( $this->get_menu_slug() )
 		) {
 			// Add admin menu.
 			add_action(
