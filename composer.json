@@ -10,10 +10,10 @@
     }
   ],
 	"require": {
-		"php": "^7.4 | ^8.0",
+		"php": "^7.4 | ^8.2",
 		"automattic/jetpack-autoloader": "^2.12",
 		"composer/installers": "^2.2",
-		"mazepress/html": "^1.1"
+		"mazepress/html": "^1.7"
 	},
 	"require-dev": {
 		"phpcompatibility/phpcompatibility-wp": "^2.1.4",
