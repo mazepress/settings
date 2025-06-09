@@ -54,11 +54,11 @@ abstract class BaseSettings {
 	abstract public function get_fieldsets(): array;
 
 	/**
-	 * Initialise class.
+	 * Initialise admin functions.
 	 *
 	 * @return self
 	 */
-	public function init(): self {
+	public function admin_init(): self {
 
 		if (
 			! empty( $this->get_page_title() )
