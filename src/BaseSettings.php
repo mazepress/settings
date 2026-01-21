@@ -165,6 +165,7 @@ abstract class BaseSettings {
 					function ( BaseField $field ) use ( $page, $section ) {
 
 						$field_name = $field->get_name();
+						$field_id   = sanitize_html_class( $field_name );
 						$post_fix   = '';
 
 						if ( ! empty( $field_name ) && false !== strpos( $field_name, '[]', -2 ) ) {
@@ -174,18 +175,22 @@ abstract class BaseSettings {
 
 						$field->set_name( wp_sprintf( '%1$s[%2$s]%3$s', $section, $field_name, $post_fix ) );
 						$label = $field->get_label();
+						$args  = array( 'field' => $field );
 
 						if ( $field instanceof Label ) {
-							$label = '<h3>' . $label . '</h3>';
+							$field_id        = wp_unique_id( 'label-' );
+							$args['heading'] = 1;
+							$args['class']   = 'hidden';
 						}
 
+						// Register the field.
 						add_settings_field(
-							$field->get_name(),
+							$field_id,
 							$label,
 							array( $this, 'render_field' ),
 							$page,
 							$section,
-							array( 'field' => $field )
+							$args
 						);
 					}
 				);
@@ -202,20 +207,32 @@ abstract class BaseSettings {
 	 */
 	public function render_field( array $args ): void {
 
-		if ( ! empty( $args['field'] ) && $args['field'] instanceof BaseField ) {
+		if ( empty( $args['field'] ) || ! $args['field'] instanceof BaseField ) {
+			return;
+		}
 
-			if ( $args['field'] instanceof Label ) {
-				echo '<hr>';
-			} else {
-				$args['field']->render();
-			}
+		$field = $args['field'];
+		$info  = '';
 
-			if ( ! empty( $args['field']->get_description() ) ) {
-				echo wp_sprintf(
-					'<p class="form-info-text">%1$s</p>',
-					wp_kses_post( $args['field']->get_description() )
-				);
-			}
+		if ( ! empty( $field->get_description() ) ) {
+			$info = wp_sprintf(
+				'<p class="form-text">%s</p>',
+				$field->get_description()
+			);
+		}
+
+		if ( isset( $args['heading'] ) && absint( $args['heading'] ) ) {
+			printf(
+				'</td></tr><tr><th scope="row" colspan="2"><h3 style="margin:0;">%s</h3>%s</th></tr>',
+				wp_kses_post( $field->get_label() ),
+				wp_kses_post( $info ),
+			);
+		} else {
+			// Render field.
+			$field->render();
+
+			// Render description.
+			echo $info;
 		}
 	}
 
